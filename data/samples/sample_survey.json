@@ -1,0 +1,143 @@
+{
+  "survey_id": "SURVEY-ACME-2024-Q4",
+  "vendor_id": "VEND-ACME-001",
+  "submitted_at": "2024-12-15T09:30:00Z",
+  "framework": "iso27001",
+  "responses": [
+    {
+      "question_id": "Q_SEC_01",
+      "question_text": "Do you have a documented information security policy?",
+      "question_type": "text",
+      "answer": "Yes. We have a 32-page information security policy that was last updated in August 2024. It covers access control, data classification, incident response, and acceptable use. All employees sign an acknowledgment annually.",
+      "evidence_ids": ["EVID-SEC-01"]
+    },
+    {
+      "question_id": "Q_SEC_02",
+      "question_text": "How often is your security policy reviewed and approved by executive leadership?",
+      "question_type": "text",
+      "answer": "The policy is reviewed annually. The CISO presents updates to the executive team for approval. Last approved: August 2024.",
+      "evidence_ids": ["EVID-SEC-01"]
+    },
+    {
+      "question_id": "Q_ORG_01",
+      "question_text": "Are information security roles and responsibilities formally defined and assigned?",
+      "question_type": "boolean",
+      "answer": "Yes",
+      "evidence_ids": []
+    },
+    {
+      "question_id": "Q_ORG_02",
+      "question_text": "Do you provide security training to personnel?",
+      "question_type": "boolean",
+      "answer": "Yes — mandatory annual security awareness training plus role-specific training for engineering and operations teams.",
+      "evidence_ids": ["EVID-TRN-01"]
+    },
+    {
+      "question_id": "Q_ASM_01",
+      "question_text": "Do you maintain an inventory of information assets?",
+      "question_type": "boolean",
+      "answer": "Yes, we maintain a comprehensive asset inventory in our CMDB.",
+      "evidence_ids": []
+    },
+    {
+      "question_id": "Q_ASM_02",
+      "question_text": "How is asset ownership assigned and tracked?",
+      "question_type": "text",
+      "answer": "Each asset in the CMDB has an owner assigned. Ownership changes are tracked through change management tickets.",
+      "evidence_ids": []
+    },
+    {
+      "question_id": "Q_ACC_01",
+      "question_text": "Describe your user access request and approval process.",
+      "question_type": "text",
+      "answer": "Access requests are submitted via our ITSM system. Managers approve requests. Access is granted within 24 hours. De-provisioned automatically when employment ends.",
+      "evidence_ids": ["EVID-ACC-01"]
+    },
+    {
+      "question_id": "Q_ACC_02",
+      "question_text": "Do you enforce multi-factor authentication for all system access?",
+      "question_type": "boolean",
+      "answer": "Yes, MFA is enforced for all employee accounts. External vendor accounts use federated SSO with MFA.",
+      "evidence_ids": []
+    },
+    {
+      "question_id": "Q_ACC_03",
+      "question_text": "Do you conduct regular access reviews and enforce least privilege?",
+      "question_type": "text",
+      "answer": "We conduct quarterly access reviews for privileged accounts and annually for standard accounts. Least privilege is enforced through role-based access control.",
+      "evidence_ids": ["EVID-ACC-02"]
+    },
+    {
+      "question_id": "Q_ACC_04",
+      "question_type": "text",
+      "question_text": "Describe your encryption practices for data at rest and in transit.",
+      "answer": "All data at rest is encrypted with AES-256. TLS 1.2+ for all data in transit. Database encryption keys are managed via our cloud provider's KMS. Key rotation occurs every 90 days.",
+      "evidence_ids": ["EVID-ENC-01"]
+    },
+    {
+      "question_id": "Q_CRY_01",
+      "question_text": "Do you have documented cryptographic policies?",
+      "question_type": "boolean",
+      "answer": "Yes",
+      "evidence_ids": []
+    },
+    {
+      "question_id": "Q_OPS_01",
+      "question_text": "Describe your change management process.",
+      "question_type": "text",
+      "answer": "All infrastructure changes go through our CI/CD pipeline. Changes are reviewed by at least one peer, tested in staging, then deployed to production. Emergency changes follow an expedited approval process with post-hoc documentation.",
+      "evidence_ids": ["EVID-OPS-01"]
+    },
+    {
+      "question_id": "Q_OPS_02",
+      "question_text": "Do you perform regular backups? How long are they retained?",
+      "question_type": "text",
+      "answer": "Yes. Daily snapshots with 30-day retention. Weekly full backups with 90-day retention stored in a separate region. Backup restoration is tested quarterly.",
+      "evidence_ids": ["EVID-BAK-01"]
+    },
+    {
+      "question_id": "Q_OPS_03",
+      "question_text": "How do you identify and remediate security vulnerabilities?",
+      "question_type": "text",
+      "answer": "We run automated vulnerability scans on all production systems weekly using Qualys. CVEs are prioritized using CVSS. Critical/high vulnerabilities are patched within 72 hours, medium within 30 days.",
+      "evidence_ids": ["EVID-VULN-01"]
+    },
+    {
+      "question_id": "Q_COM_01",
+      "question_text": "Do you implement network segmentation? Describe your approach.",
+      "question_type": "text",
+      "answer": "Yes. We use VPCs with public/private subnet separation. Production workloads are isolated in dedicated VPCs. Security groups and NACLs control traffic flow.",
+      "evidence_ids": ["EVID-NET-01"]
+    },
+    {
+      "question_id": "Q_INC_01",
+      "question_text": "Do you have an incident response plan? How often is it tested?",
+      "question_type": "text",
+      "answer": "Yes, we have a documented IRP. We conduct tabletop exercises quarterly and full incident simulations annually. The IRP is reviewed and updated after each real incident and at least annually.",
+      "evidence_ids": ["EVID-INC-01"]
+    },
+    {
+      "question_id": "Q_COM_02",
+      "question_text": "How do you ensure compliance with applicable regulations?",
+      "question_type": "text",
+      "answer": "We maintain a compliance program covering SOC 2 Type II, ISO 27001, and GDPR. Automated monitoring alerts on deviations. We undergo third-party audits annually.",
+      "evidence_ids": ["EVID-COM-01"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EVID-SEC-01",
+      "filename": "security_policy.pdf",
+      "content_type": "application/pdf",
+      "content": "[base64 content omitted]",
+      "description": "Documented information security policy"
+    },
+    {
+      "id": "EVID-TRN-01",
+      "filename": "training_schedule.csv",
+      "content_type": "text/csv",
+      "content": "[content omitted]",
+      "description": "Annual security training schedule"
+    }
+  ]
+}

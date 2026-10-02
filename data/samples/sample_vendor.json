@@ -1,0 +1,8 @@
+{
+  "id": "VEND-ACME-001",
+  "name": "ACME Cloud Services",
+  "service": "Managed Kubernetes hosting and container orchestration",
+  "data_classification": "confidential",
+  "contract_scope": "Hosting production workloads for customer-facing applications including PII processing",
+  "priority": "high"
+}

@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/*.log
+!logs/.gitkeep
+
+# Data (runtime, not source)
+data/surveys/*
+!data/surveys/.gitkeep
+data/frameworks/*
+!data/frameworks/.gitkeep
+outputs/
+*.sqlite3
+!data/samples/.gitkeep
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
