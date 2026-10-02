@@ -26,7 +26,7 @@ tprm = "tprm.cli:main"
 tprm-serve = "tprm.api.main:run"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/tprm"]
 
 [tool.uv]
 package = true
@@ -38,3 +38,7 @@ dev = [
     "black>=24.0.0",
     "ruff>=0.8.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

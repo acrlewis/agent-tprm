@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import json
 import uuid
-from datetime import datetime, timezone
 from typing import Any
 
 import anthropic
@@ -18,7 +17,7 @@ from pydantic import BaseModel, Field
 
 from tprm.config import settings
 from tprm.config.frameworks import Criterion, ISO27001_CRITERIA
-from tprm.models.survey import Survey, SurveyResponse
+from tprm.models.survey import Survey
 from tprm.models.assessment import ScoredResponse, CompletenessIssue
 
 
@@ -83,9 +82,13 @@ class ClaudeAnalyser:
     """Uses Claude (Anthropic API) to analyse vendor survey responses."""
 
     def __init__(self, api_key: str | None = None, model: str | None = None):
-        self._client = anthropic.Anthropic(
-            api_key=api_key or settings.claude_api_key,
-        )
+        key = api_key or settings.claude_api_key
+        if not key:
+            raise ValueError(
+                "Anthropic API key is required. Set ANTHROPIC_API_KEY or "
+                "CLAUDE_API_KEY in environment/.env, or pass api_key directly."
+            )
+        self._client = anthropic.Anthropic(api_key=key)
         self._model = model or settings.claude_model
         self._max_tokens = settings.claude_max_tokens
         self._temperature = settings.claude_temperature

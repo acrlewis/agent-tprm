@@ -49,7 +49,7 @@ async def approve(assessment_id: str, reviewer: str = Body(..., embed=True)):
     raise HTTPException(
         status_code=501,
         detail="Approval requires assessment persistence (future work). "
-        "Use the CLI for now: tprm approve <assessment_id> <reviewer>",
+        "Use the CLI for now: tprm approve <assessment_file> <reviewer>",
     )
 
 

@@ -51,34 +51,37 @@ class TestComputeRiskScore:
         assert result.low_confidence is True
 
     def test_perfect_score(self):
+        """Maturity Level 5 across all criteria yields minimal/very low risk."""
         scored = [
             _make_scored(5, weight=1.0),
             _make_scored(5, weight=1.0),
         ]
         result = compute_risk_score(scored, 1.0, False)
-        assert result.normalized_score == 100.0
-        assert result.tier == RiskTier.CRITICAL
+        assert result.normalized_score == 0.0
+        assert result.tier == RiskTier.VERY_LOW
 
     def test_minimum_score(self):
+        """Maturity Level 1 across all criteria yields maximum critical risk."""
         scored = [
             _make_scored(1, weight=1.0),
             _make_scored(1, weight=1.0),
         ]
         result = compute_risk_score(scored, 0.8, False)
-        assert result.normalized_score == 0.0
-        assert result.tier == RiskTier.VERY_LOW
+        assert result.normalized_score == 100.0
+        assert result.tier == RiskTier.CRITICAL
 
     def test_weighted_mixed(self):
-        # Level 3 (score 50, weight 1.0) + Level 1 (score 0, weight 1.0)
+        # Level 3 (risk 50, weight 1.0) + Level 1 (risk 100, weight 1.0)
         scored = [
             _make_scored(3, weight=1.0),
             _make_scored(1, weight=1.0),
         ]
         result = compute_risk_score(scored, 0.8, False)
-        raw = 50.0 * 1.0 + 0.0 * 1.0
+        raw = 50.0 * 1.0 + 100.0 * 1.0
         max_possible = 100.0 * 1.0 + 100.0 * 1.0
         expected = (raw / max_possible) * 100.0
         assert result.normalized_score == round(expected, 2)
+        assert result.tier == RiskTier.HIGH
 
     def test_deterministic(self):
         """Same input always produces same output."""

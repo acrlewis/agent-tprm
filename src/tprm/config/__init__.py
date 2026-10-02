@@ -8,10 +8,10 @@ class Settings(BaseSettings):
 
     # Claude settings
     claude_api_key: str = Field(
-        ...,
+        default="",
         validation_alias=AliasChoices("ANTHROPIC_API_KEY", "CLAUDE_API_KEY"),
     )
-    claude_model: str = "claude-sonnet-4-20250514"
+    claude_model: str = "claude-3-5-sonnet-20241022"
     claude_max_tokens: int = 4096
     claude_temperature: float = 0.0  # deterministic
 

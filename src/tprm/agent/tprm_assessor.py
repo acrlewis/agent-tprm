@@ -194,7 +194,10 @@ class TPRMAssessor:
         self, assessment: Assessment, reviewer: str, reason: str
     ) -> Assessment:
         """Human-in-the-loop rejection step."""
-        if assessment.status != AssessmentStatus.PENDING_REVIEW:
+        if assessment.status not in (
+            AssessmentStatus.PENDING_REVIEW,
+            AssessmentStatus.FLAGGED_LOW_CONFIDENCE,
+        ):
             raise ValueError(
                 f"Assessment in status '{assessment.status.value}' "
                 "cannot be rejected."

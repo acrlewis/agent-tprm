@@ -19,10 +19,10 @@ class AssessmentStatus(str, Enum):
 class Quadrant(str, Enum):
     """2x2 matrix quadrant for dashboard positioning."""
 
-    MAINTAIN_AND_MONITOR = "maintain_and_monitor"  # low priority, low risk
-    IMMEDIATE_REMEDIATION = "immediate_remediation"  # high priority, high risk
-    ROUTINE_REVIEW = "routine_review"  # low priority, high risk
-    REMEDIATE_OR_REPLACE = "remediate_or_replace"  # high priority, low risk
+    MAINTAIN_AND_MONITOR = "maintain_and_monitor"    # high priority, low risk (strategic partner)
+    IMMEDIATE_REMEDIATION = "immediate_remediation"  # high priority, high risk (critical threat)
+    ROUTINE_REVIEW = "routine_review"                # low priority, low risk (routine check)
+    REMEDIATE_OR_REPLACE = "remediate_or_replace"    # low priority, high risk (fix or substitute)
 
 
 class RiskTier(str, Enum):

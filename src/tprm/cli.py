@@ -75,5 +75,30 @@ def approve(assessment_file: str, reviewer: str):
     click.echo(f"✓ Approved: {approved.assessment_id} by {reviewer}")
 
 
+@main.command()
+@click.argument("assessment_file", type=click.Path(exists=True))
+@click.argument("reviewer")
+@click.option("--reason", "-r", default="Assessment criteria not met",
+              help="Reason for rejection.")
+def reject(assessment_file: str, reviewer: str, reason: str):
+    """Reject a pending assessment (human-in-the-loop)."""
+    with open(assessment_file) as f:
+        assessment = json.load(f)
+    from tprm.models.assessment import Assessment
+    assessment = Assessment(**assessment)
+
+    assessor = TPRMAssessor()
+    try:
+        rejected = assessor.reject(assessment, reviewer, reason)
+    except ValueError as exc:
+        click.echo(f"Cannot reject: {exc}", err=True)
+        sys.exit(1)
+
+    with open(assessment_file, "w") as f:
+        f.write(rejected.model_dump_json(indent=2))
+
+    click.echo(f"✗ Rejected: {rejected.assessment_id} by {reviewer} (Reason: {reason})")
+
+
 if __name__ == "__main__":
     main()

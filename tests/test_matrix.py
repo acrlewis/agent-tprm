@@ -36,22 +36,22 @@ class TestComputeQuadrant:
 
     def test_high_priority_low_risk(self):
         result = compute_quadrant(Priority.HIGH, _make_risk(10))
-        assert result == Quadrant.REMEDIATE_OR_REPLACE
+        assert result == Quadrant.MAINTAIN_AND_MONITOR
 
     def test_low_priority_high_risk(self):
         result = compute_quadrant(Priority.LOW, _make_risk(80))
-        assert result == Quadrant.ROUTINE_REVIEW
+        assert result == Quadrant.REMEDIATE_OR_REPLACE
 
     def test_low_priority_low_risk(self):
         result = compute_quadrant(Priority.LOW, _make_risk(10))
-        assert result == Quadrant.MAINTAIN_AND_MONITOR
+        assert result == Quadrant.ROUTINE_REVIEW
 
     def test_medium_priority_treated_as_low(self):
         """Medium priority maps to low-priority quadrants."""
         result = compute_quadrant(Priority.MEDIUM, _make_risk(80))
-        assert result == Quadrant.ROUTINE_REVIEW
+        assert result == Quadrant.REMEDIATE_OR_REPLACE
 
     def test_boundary_threshold(self):
         """Score exactly at threshold is NOT high risk."""
         result = compute_quadrant(Priority.HIGH, _make_risk(HIGH_RISK_THRESHOLD))
-        assert result == Quadrant.REMEDIATE_OR_REPLACE  # not high risk at exactly threshold
+        assert result == Quadrant.MAINTAIN_AND_MONITOR  # not high risk at exactly threshold

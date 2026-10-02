@@ -8,14 +8,15 @@ from __future__ import annotations
 from tprm.models.assessment import RiskScore, RiskTier, ScoredResponse
 
 # ── Fixed scoring table ──────────────────────────────────────────────────
-# Maps maturity level (1–5) → base score (0–100).
+# Maps maturity level (1–5) → risk score (100–0).
+# In risk management, higher security maturity yields lower risk.
 # This table is immutable by design.
 MATURITY_TO_SCORE: dict[int, float] = {
-    1: 0.0,    # Poor / Non-existent
-    2: 25.0,   # Basic / Fragmented
-    3: 50.0,   # Defined / Documented
-    4: 75.0,   # Managed / Measured
-    5: 100.0,  # Optimised / Automated
+    1: 100.0,  # Poor / Non-existent -> Maximum Risk
+    2: 75.0,   # Basic / Fragmented -> High Risk
+    3: 50.0,   # Defined / Documented -> Moderate Risk
+    4: 25.0,   # Managed / Measured -> Low Risk
+    5: 0.0,    # Optimised / Automated -> Minimal / Very Low Risk
 }
 
 # Threshold boundaries for risk tiers (0–100 scale)

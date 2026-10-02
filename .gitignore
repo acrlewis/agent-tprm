@@ -36,7 +36,9 @@ data/surveys/*
 !data/surveys/.gitkeep
 data/frameworks/*
 !data/frameworks/.gitkeep
-outputs/
+outputs/*
+!outputs/logs/
+!outputs/logs/.gitkeep
 *.sqlite3
 !data/samples/.gitkeep
 

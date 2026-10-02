@@ -63,7 +63,7 @@ Vendor text is **never** injected into the system prompt — it is passed as use
 
 ```bash
 # Clone
-git clone https://github.com/moudy-ai/agent-tprm.git
+git clone https://github.com/acrlewis/agent-tprm.git
 cd agent-tprm
 
 # Create .env (copy from template)
@@ -97,7 +97,7 @@ All settings are loaded from environment variables (via `.env`):
 | Variable                  | Default                     | Description                              |
 |---------------------------|-----------------------------|------------------------------------------|
 | `ANTHROPIC_API_KEY`       | *(required)*                | Your Claude API key                      |
-| `CLAUDE_MODEL`            | `claude-sonnet-4-20250514`  | Claude model to use                      |
+| `CLAUDE_MODEL`            | `claude-3-5-sonnet-20241022`| Claude model to use                      |
 | `CLAUDE_MAX_TOKENS`       | `4096`                      | Max tokens per Claude call               |
 | `CLAUDE_TEMPERATURE`      | `0.0`                       | Must be 0 for deterministic scoring      |
 | `AUDIT_LOG_DIR`           | `outputs/logs`              | Where JSONL audit logs are written       |
@@ -115,6 +115,9 @@ tprm assess data/samples/sample_survey.json \
 
 # Approve a pending assessment (human-in-the-loop)
 tprm approve outputs/assessment.json "analyst@company.com"
+
+# Or reject with a rationale
+tprm reject outputs/assessment.json "analyst@company.com" --reason "Insufficient backup testing"
 ```
 
 Output:
@@ -123,12 +126,21 @@ Output:
 ✓ Assessment complete: abc123-...
   Vendor: ACME Cloud Services
   Status: pending_human_review
-  Risk: 72.50/100 (high)
-  Quadrant: immediate_remediation
-  Completeness issues: 2
+  Risk: 18.75/100 (very_low)
+  Quadrant: maintain_and_monitor
+  Completeness issues: 0
   Output: outputs/assessment.json
   Audit log: outputs/logs/abc123-....jsonl
 ```
+
+### Dashboard Quadrants (2×2 Risk × Priority)
+
+| Quadrant | Priority | Risk | Action |
+|:---|:---|:---|:---|
+| **Immediate Remediation** | High | High | Urgent remediation plan or contract pause |
+| **Maintain & Monitor** | High | Low | Strategic partner; periodic monitoring |
+| **Remediate or Replace** | Low | High | Require corrective action or substitute vendor |
+| **Routine Review** | Low | Low | Standard annual re-assessment cycle |
 
 ### API
 
@@ -165,10 +177,13 @@ vendor = Vendor(**vendor_dict)
 
 # Run the assessment
 assessment = assessor.assess(survey, vendor)
-print(assessment.risk_score.normalized_score)
+print(f"Risk Score: {assessment.risk_score.normalized_score}/100 ({assessment.risk_score.tier.value})")
+print(f"Quadrant: {assessment.quadrant.value}")
 
 # Human approves
 approved = assessor.approve(assessment, reviewer="analyst@company.com")
+# Or human rejects
+# rejected = assessor.reject(assessment, reviewer="analyst@company.com", reason="Missing evidence")
 ```
 
 ## Pre-Build Requirements
