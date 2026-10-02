@@ -46,3 +46,7 @@ outputs/*
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Antigravity IDE convention files
+GEMINI.md
+LEARNINGS.gemini.md
