@@ -274,7 +274,9 @@ Also provide:
             tool_choice={"type": "tool", "name": tool_name},
         )
 
-        request_id = response.headers.get("request-id", str(uuid.uuid4()))
+        # Anthropic SDK Message object exposes the message ID (not HTTP headers).
+        # Use it for audit-trace correlation; fall back to UUID if absent.
+        request_id = getattr(response, "id", None) or str(uuid.uuid4())
         self._request_ids.append(request_id)
 
         # Extract parsed tool output
